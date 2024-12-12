@@ -57,6 +57,20 @@ public class PetApiTest {
         Assertions.assertEquals(petActual, pet);
 
     }
+    @Test
+    public void create1PetPOST() {
+        Specification.installSpec(Specification.requestSpecification(URL), Specification.responseSpecificationOK200());
+        PetModel pet = createPetObject();
+        PetModel petActual = given()
+                .when()
+                .body(pet)
+                .post(URL + PET_PATH)
+                .then()
+                .log().all()
+                .extract().as(PetModel.class);
+        Assertions.assertEquals(petActual, pet);
+
+    }
 
     @Test
     public void createPetWithEmptyRequiredFieldsPOST() {
